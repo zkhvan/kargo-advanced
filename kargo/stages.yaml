@@ -1,0 +1,129 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: dev
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: red
+spec:
+  subscriptions:
+    warehouse: guestbook
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/dev
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: staging
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: amber
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: dev
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/staging
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: ab-test-a
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: yellow
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: staging
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/ab-test-a
+  verification:
+    analysisTemplates:
+    - name: cat-fact
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: ab-test-b
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: green
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: staging
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/ab-test-b
+  verification:
+    analysisTemplates:
+    - name: cat-fact-fail
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: blue
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: ab-test-a
+      - name: ab-test-b
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod-west
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: violet
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: prod
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/prod-west
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod-central
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: violet
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: prod
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/prod-central
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod-east
+  namespace: kargo-advanced
+  annotations:
+    kargo.akuity.io/color: violet
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: prod
+  promotionMechanisms:
+    gitRepoUpdates:
+    - repoURL: https://github.com/zkhvan/kargo-advanced.git
+      writeBranch: env/prod-east
