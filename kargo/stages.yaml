@@ -12,7 +12,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/dev
-      render: {}
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -29,7 +28,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/staging
-      render: {}
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -46,7 +44,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/ab-test-a
-      render: {}
   verification:
     analysisTemplates:
     - name: cat-fact
@@ -66,7 +63,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/ab-test-b
-      render: {}
   verification:
     analysisTemplates:
     - name: cat-fact-fail
@@ -99,7 +95,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-west
-      render: {}
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -116,7 +111,6 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-central
-      render: {}
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -133,4 +127,3 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-east
-      render: {}
