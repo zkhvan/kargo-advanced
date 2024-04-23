@@ -13,9 +13,6 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/dev
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-dev
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -33,9 +30,6 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/staging
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-staging
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -53,12 +47,9 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/ab-test-a
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-ab-test-a
   verification:
     analysisTemplates:
     - name: cat-fact
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -76,12 +67,9 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/ab-test-b
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-ab-test-b
   verification:
     analysisTemplates:
     - name: cat-fact-fail
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -95,7 +83,6 @@ spec:
     upstreamStages:
       - name: ab-test-a
       - name: ab-test-b
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -113,9 +100,6 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-west
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-prod-west
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -133,9 +117,6 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-central
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-prod-central
-
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -153,5 +134,3 @@ spec:
     - repoURL: https://github.com/zkhvan/kargo-advanced.git
       writeBranch: env/prod-east
       render: {}
-    argoCDAppUpdates:
-    - appName: guestbook-prod-east
